@@ -1,15 +1,27 @@
 {
-  "version": 2,
-  "buildCommand": "cd client && npm install && npm run build",
-  "outputDirectory": "client/dist",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "livora-campus-living": {
+      "root": "client",
+      "framework": "vite"
+    },
+    "livora-hostel-api": {
+      "root": "server",
+      "entrypoint": "server.js"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index.js"
+      "destination": {
+        "service": "livora-hostel-api"
+      }
     },
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": {
+        "service": "livora-campus-living"
+      }
     }
   ]
 }

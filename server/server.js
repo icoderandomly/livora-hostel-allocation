@@ -96,23 +96,17 @@ const startServer = async () => {
   try {
     await connectDB();
     const server = app.listen(PORT, () => {
-      console.log(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on http://localhost:${PORT}`);
+      console.log(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
     });
 
-    // Handle Unhandled Promise Rejections
     process.on('unhandledRejection', (err) => {
       console.error(`Unhandled Rejection Error: ${err.message}`);
-      // server.close(() => process.exit(1));
     });
   } catch (error) {
     console.error(`Failed to launch server: ${error.message}`);
-    process.exit(1);
   }
 };
 
-// Start standalone HTTP listener only when NOT running in a serverless environment (like Vercel)
-if (!process.env.VERCEL) {
-  startServer();
-}
+startServer();
 
 module.exports = app;
