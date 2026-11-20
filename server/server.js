@@ -110,6 +110,9 @@ const startServer = async () => {
   }
 };
 
-startServer();
+// Start standalone HTTP listener only when NOT running in a serverless environment (like Vercel)
+if (!process.env.VERCEL) {
+  startServer();
+}
 
 module.exports = app;

@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
+    // Re-use active connection in serverless (e.g. Vercel) environments
+    if (mongoose.connection.readyState >= 1) {
+      return mongoose.connection;
+    }
+
     let uri = process.env.MONGODB_URI || process.env.MONGO_URI;
 
     // Check if user has provided an actual MongoDB Atlas connection string
