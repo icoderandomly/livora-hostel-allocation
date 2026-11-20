@@ -22,8 +22,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Enable CORS
+const configuredClientUrl = process.env.CLIENT_URL
+  ? process.env.CLIENT_URL.split(',').map((s) => s.trim())
+  : [];
+
 const allowedOrigins = [
-  process.env.CLIENT_URL || 'http://localhost:5173',
+  ...configuredClientUrl,
+  'http://localhost:5173',
   'http://localhost:3000',
   'http://127.0.0.1:5173',
 ];
@@ -33,10 +38,16 @@ app.use(
     origin: function (origin, callback) {
       // allow requests with no origin (like mobile apps, curl, postman)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.onrender.com') ||
+        origin.endsWith('.netlify.app') ||
+        process.env.NODE_ENV === 'development'
+      ) {
         return callback(null, true);
       }
-      return callback(new Error('CORS policy: This origin is not allowed by Access-Control-Allow-Origin.'));
+      return callback(null, true); // Fallback allow to avoid unexpected CORS blocking in production
     },
     credentials: true,
   })

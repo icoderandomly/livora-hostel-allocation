@@ -40,6 +40,16 @@ A complete, production-grade, highly-animated full-stack web application for uni
 
 ---
 
+## ☁️ 1-Click Cloud Deployment to Render
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/icoderandomly/livora-hostel-allocation)
+
+Render automatically reads the included [`render.yaml`](./render.yaml) Blueprint to provision:
+1. **`livora-hostel-api`**: Free Node.js Express Backend Service
+2. **`livora-campus-living`**: Free Static Vite Frontend Site
+
+---
+
 ## 🔐 Verified Demo Credentials
 
 | Persona | Email | Password | Role / Access |

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    let uri = process.env.MONGODB_URI;
+    let uri = process.env.MONGODB_URI || process.env.MONGO_URI;
 
     // Check if user has provided an actual MongoDB Atlas connection string
     const isPlaceholder =
