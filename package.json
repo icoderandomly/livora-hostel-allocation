@@ -1,0 +1,13 @@
+{
+  "name": "livora-hostel-allocation",
+  "version": "1.0.0",
+  "description": "LIVORA Living - Autonomous Campus Residential Cloud & Smart Room Allocation OS",
+  "scripts": {
+    "build": "npm --prefix client install && npm --prefix client run build",
+    "start": "node server/server.js",
+    "seed": "node server/seed-real-data.js"
+  },
+  "keywords": ["hostel-management", "room-allocation", "mern-stack", "react", "express", "mongodb"],
+  "author": "icoderandomly",
+  "license": "MIT"
+}
