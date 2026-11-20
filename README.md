@@ -1,12 +1,12 @@
-# 🏨 STAY HOSTEL - Smart University Residence & Room Allocation System
+# 🌌 LIVORA Living | Autonomous Campus Residential Cloud & Smart Room Allocation OS
 
-A complete, production-grade, responsive full-stack web application for university hostel accommodation and room allocation management. Built with a modern **React (Vite) + Tailwind CSS** frontend and a robust **Node.js + Express + MongoDB (Atlas / Local)** backend.
+A complete, production-grade, highly-animated full-stack web application for university hostel accommodation and room allocation management. Engineered with a **Royal Midnight Sapphire Glass UI (React 18 + Vite + Tailwind CSS)** and an enterprise **Node.js + Express + MongoDB (Atlas / Local)** backend.
 
 ---
 
 ## 🌟 Key Features
 
-### 👨‍💼 Admin Management Portal
+### 👨‍💼 Executive Command Center (Warden & Administration)
 - **Interactive Analytics Dashboard**: Live metrics tracking Total Students, Hostels, Rooms, Available Beds, Occupied Rooms, and Pending Applications.
 - **Graphical Analytics (Recharts)**: Room occupancy rates, Hostel-wise capacity vs allocated beds, and application pipeline status charts.
 - **Hostel Management**: Add, edit, search, and delete campus hostels (with active student allocation safety guards).
@@ -20,7 +20,7 @@ A complete, production-grade, responsive full-stack web application for universi
 - **Student Directory**: Complete student roster with contact details, academic details, and current room status.
 - **Institutional Reports & CSV Export**: Generate date-filtered reports for occupancy, room inventory, allocation history, and pending applications with one-click CSV export.
 
-### 👨‍🎓 Student Portal
+### 👨‍🎓 Student Portal (Resident Scholars)
 - **Personalized Residence Dashboard**: Dynamic welcome header, student profile summary, current room allocation badge, and live campus room vacancies.
 - **Apply for Hostel**: Multi-step accommodation application selecting preferred hostel, room type (Single/Double/Triple), floor preference, and emergency contacts.
 - **My Applications**: Track application lifecycle (`Pending` ➔ `Approved` ➔ `Allocated` or `Rejected`) with warden inspection remarks.
@@ -33,26 +33,25 @@ A complete, production-grade, responsive full-stack web application for universi
 
 | Layer | Technologies |
 |---|---|
-| **Frontend** | React 18, Vite, Tailwind CSS, React Router DOM v6, Axios, Lucide React, Recharts |
-| **Backend** | Node.js, Express.js, MongoDB (Atlas / Native), Mongoose ORM, JSON Web Tokens (JWT), bcryptjs, Express Validator, Express Rate Limit, Morgan, CORS, dotenv |
+| **Frontend** | React 18, Vite, Tailwind CSS, Lucide React, Recharts, Axios, React Router DOM v6 |
+| **Backend** | Node.js, Express.js, MongoDB (Atlas / Native), Mongoose ORM, JWT, bcryptjs, Express Validator, Rate Limit, CORS, dotenv |
 | **Database** | MongoDB Atlas (Cloud) / Local MongoDB Service |
+| **Deployment** | Vercel (Frontend & SPA Rewrites), Render / Railway (Backend API), GitHub CI/CD |
 
 ---
 
-## 🔐 Pre-Seeded Test Credentials
+## 🔐 Verified Demo Credentials
 
-Use these pre-configured credentials to immediately log in and test all functionalities:
-
-| User Role | Email | Password | Description / State |
+| Persona | Email | Password | Role / Access |
 |---|---|---|---|
-| **Chief Warden (Admin)** | `admin@example.com` | `AdminPass@2025` | Full administrative access to hostels, rooms, allocations, and reports |
-| **Student (Allocated)** | `aarav.patel@student.edu` | `Password@123` | Allocated to Aryabhatta Room A-102 with roommate Rohan Verma |
-| **Student (Roommate)** | `rohan.verma@student.edu` | `Password@123` | Co-occupant of Room A-102 |
-| **Student (Single Room)** | `ananya.sharma@student.edu` | `Password@123` | Allocated to Gargi Hostel Single Room G-101 |
-| **Student (Approved)** | `sneha.k@student.edu` | `Password@123` | Application approved; ready in "Awaiting Allocation" tab |
-| **Student (Pending)** | `vikram.roy@student.edu` | `Password@123` | Application pending admin review |
+| **Chief Warden (Admin)** ⚡ | `admin@stayhostel.edu` *(or `admin@example.com`)* | `Admin@123` | Executive Command Center (`/admin/dashboard`) |
+| **Resident Scholar (Aarav Patel)** | `aarav.patel@student.edu` | `Student@123` | Student Portal (`/student/dashboard`, Room `SH-201`) |
+| **Resident Scholar (Rohan Verma)** | `rohan.verma@student.edu` | `Student@123` | Student Portal (Roommate of Aarav in `SH-201`) |
+| **Resident Scholar (Ananya Sharma)** | `ananya.sharma@student.edu` | `Student@123` | Student Portal (Allocated to Mandakini `MD-101`) |
+| **Resident Scholar (Sneha Kulkarni)** | `sneha.k@student.edu` | `Student@123` | Student Portal (Allocated to Mandakini `MD-101`) |
+| **Resident Scholar (Vikramaditya Roy)** | `vikram.roy@student.edu` | `Student@123` | Student Portal (Allocated to Nilgiri `NL-501`) |
 
-*Quick-fill demo buttons are also provided directly on the Login screen for 1-click credential population.*
+*Instant 1-Click Persona Sign-In buttons are also provided directly on the Login screen (`/login`).*
 
 ---
 
