@@ -172,7 +172,13 @@ export const Sidebar = ({ isOpen, onClose }) => {
                       >
                         <Icon className="w-4 h-4 transition-transform group-hover:scale-110" />
                       </div>
-                      <span className="tracking-tight">{item.label}</span>
+                      <span
+                        className={`tracking-tight ${
+                          isActive ? 'text-stone-950 font-black' : ''
+                        }`}
+                      >
+                        {item.label}
+                      </span>
                     </div>
 
                     <div className="flex items-center gap-1.5">

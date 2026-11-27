@@ -18,7 +18,7 @@ export const CAMPUS_IMAGES = {
     tagline: 'West Campus Sports Enclave',
   },
   gargi: {
-    photo: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80',
+    photo: 'https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=1200&q=80',
     tagline: 'Central Campus Women Scholar Hall',
   },
   kalam: {
