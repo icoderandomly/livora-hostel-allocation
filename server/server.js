@@ -2,7 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const { connectDB } = require('./config/db');
+const { ensureSeeded } = require('./seed-real-data');
 const errorHandler = require('./middleware/errorHandler');
 
 // Route files
@@ -59,13 +61,40 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Health Check Endpoint
-app.get('/api/health', (req, res) => {
+app.get('/api/health', async (req, res) => {
+  let dbStatus = 'disconnected';
+  let dbError = null;
+  try {
+    await connectDB();
+    await ensureSeeded();
+    dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'connecting';
+  } catch (err) {
+    dbError = err.message;
+  }
+
   res.status(200).json({
     status: 'healthy',
+    database: dbStatus,
+    ...(dbError ? { dbError } : {}),
     timestamp: new Date().toISOString(),
-    service: 'STAY HOSTEL API',
+    service: 'LIVORA LIVING API',
     uptime: process.uptime(),
   });
+});
+
+// Ensure database connection & auto-seeding before handling any API request (critical for serverless)
+app.use('/api', async (req, res, next) => {
+  if (req.path === '/health') return next();
+  try {
+    await connectDB();
+    await ensureSeeded();
+    next();
+  } catch (err) {
+    return res.status(503).json({
+      success: false,
+      message: err.message || 'Database connection error. Please check MONGODB_URI configuration.',
+    });
+  }
 });
 
 // Mount Routes
@@ -95,6 +124,7 @@ const PORT = process.env.PORT || 5000;
 const startServer = async () => {
   try {
     await connectDB();
+    await ensureSeeded();
     const server = app.listen(PORT, () => {
       console.log(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
     });
@@ -107,6 +137,8 @@ const startServer = async () => {
   }
 };
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
 
 module.exports = app;

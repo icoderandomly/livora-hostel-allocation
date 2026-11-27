@@ -2,30 +2,55 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
+const { connectDB } = require('./config/db');
 const User = require('./models/User');
 const Hostel = require('./models/Hostel');
 const Room = require('./models/Room');
 const Application = require('./models/Application');
 const Allocation = require('./models/Allocation');
 
-async function seedRealData() {
-  const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/hostel_allocation_system';
-  console.log('Connecting to MongoDB at:', mongoUri);
-  await mongoose.connect(mongoUri);
+let seedPromise = null;
 
-  console.log('Clearing old collections (preserving clean state)...');
-  await Allocation.deleteMany({});
-  await Application.deleteMany({});
-  await Room.deleteMany({});
-  await Hostel.deleteMany({});
-  await User.deleteMany({});
+async function ensureSeeded() {
+  if (seedPromise) return seedPromise;
+  seedPromise = (async () => {
+    try {
+      const existingUsers = await User.countDocuments();
+      if (existingUsers > 0) return false;
+      console.log('🌱 Empty database detected — auto-seeding realistic campus dataset...');
+      await seedRealData({ connect: false, clear: false });
+      return true;
+    } catch (err) {
+      seedPromise = null;
+      throw err;
+    }
+  })();
+  return seedPromise;
+}
+
+async function seedRealData({ connect = true, clear = true } = {}) {
+  if (connect) {
+    await connectDB();
+  }
+
+  if (clear) {
+    console.log('Clearing old collections (preserving clean state)...');
+    await Allocation.deleteMany({});
+    await Application.deleteMany({});
+    await Room.deleteMany({});
+    await Hostel.deleteMany({});
+    await User.deleteMany({});
+  }
 
   console.log('1. Creating Administrator (Chief Warden) Accounts...');
-  const adminUsers = await User.create([
+  const adminPasswordHash = await bcrypt.hash('Admin@123', 10);
+  const studentPasswordHash = await bcrypt.hash('Student@123', 10);
+
+  const adminUsers = await User.insertMany([
     {
       name: 'Dr. K. S. Ramanathan',
       email: 'admin@stayhostel.edu',
-      password: 'Admin@123',
+      password: adminPasswordHash,
       role: 'ADMIN',
       course: 'Directorate of Campus Living',
       year: 'Executive Faculty',
@@ -36,7 +61,7 @@ async function seedRealData() {
     {
       name: 'Dr. K. S. Ramanathan (Chief Warden)',
       email: 'admin@example.com',
-      password: 'Admin@123',
+      password: adminPasswordHash,
       role: 'ADMIN',
       course: 'Directorate of Campus Living',
       year: 'Executive Faculty',
@@ -184,12 +209,11 @@ async function seedRealData() {
     { name: 'Divya Prakash', email: 'divya.p@student.edu', rollNumber: '2025DSB2025', course: 'M.Tech Data Science', year: 'PG 1st Year', gender: 'Female', phone: '+91 91234 56828' },
   ];
 
-  const students = [];
-  for (const p of studentProfiles) {
-    const s = await User.create({
+  const students = await User.insertMany(
+    studentProfiles.map((p) => ({
       name: p.name,
       email: p.email,
-      password: 'Student@123',
+      password: studentPasswordHash,
       role: 'STUDENT',
       rollNumber: p.rollNumber,
       course: p.course,
@@ -197,9 +221,8 @@ async function seedRealData() {
       phoneNumber: p.phone,
       gender: p.gender,
       isActive: true,
-    });
-    students.push(s);
-  }
+    }))
+  );
   console.log(`Created ${students.length} student profiles.`);
 
   const studentMap = {};
@@ -326,10 +349,10 @@ async function seedRealData() {
     },
   ];
 
-  const createdRooms = [];
+  const roomDocsToInsert = [];
   for (const config of hostelConfigs) {
     for (const r of config.rooms) {
-      const roomDoc = await Room.create({
+      roomDocsToInsert.push({
         roomNumber: r.num,
         hostel: config.ref._id,
         floor: r.floor,
@@ -341,9 +364,9 @@ async function seedRealData() {
         amenities: r.amenities,
         description: `${r.type} room on Floor ${r.floor} with ${r.amenities.slice(0, 3).join(', ')}.`,
       });
-      createdRooms.push(roomDoc);
     }
   }
+  const createdRooms = await Room.insertMany(roomDocsToInsert);
   console.log(`Created ${createdRooms.length} rooms.`);
 
   const roomMap = {};
@@ -409,7 +432,7 @@ async function seedRealData() {
     { studentEmail: 'abhinav.t@student.edu', roomNum: 'HB-201', remarks: 'Robotics lab lead single suite.' },
   ];
 
-  const allocations = [];
+  const allocationDocs = [];
   const roomOccupancyMap = {};
 
   for (const plan of allocationPlans) {
@@ -417,7 +440,7 @@ async function seedRealData() {
     const room = roomMap[plan.roomNum];
     if (!student || !room) continue;
 
-    const alloc = await Allocation.create({
+    allocationDocs.push({
       student: student._id,
       room: room._id,
       hostel: room.hostel,
@@ -427,19 +450,29 @@ async function seedRealData() {
       allocatedBy: primaryAdmin._id,
       remarks: plan.remarks,
     });
-    allocations.push(alloc);
 
     roomOccupancyMap[room.roomNumber] = (roomOccupancyMap[room.roomNumber] || 0) + 1;
   }
+  const allocations = await Allocation.insertMany(allocationDocs);
   console.log(`Created ${allocations.length} active room allocations.`);
 
-  // Update room occupancy & statuses
-  for (const roomNum in roomOccupancyMap) {
-    const count = roomOccupancyMap[roomNum];
+  // Update room occupancy & statuses in bulk
+  const bulkOps = Object.entries(roomOccupancyMap).map(([roomNum, count]) => {
     const r = roomMap[roomNum];
-    r.currentOccupancy = count;
-    r.status = count >= r.capacity ? 'Full' : 'Available';
-    await r.save();
+    return {
+      updateOne: {
+        filter: { _id: r._id },
+        update: {
+          $set: {
+            currentOccupancy: count,
+            status: count >= r.capacity ? 'Full' : 'Available',
+          },
+        },
+      },
+    };
+  });
+  if (bulkOps.length > 0) {
+    await Room.bulkWrite(bulkOps);
   }
   console.log('Room occupancy and status levels synchronized.');
 
@@ -616,12 +649,15 @@ async function seedRealData() {
     },
   ];
 
-  for (const app of applicationData) {
+  const appDocs = [];
+  const currentYear = new Date().getFullYear();
+  applicationData.forEach((app, idx) => {
     const student = studentMap[app.studentEmail];
     const hostel = hostelMap[app.hostelName];
-    if (!student || !hostel) continue;
+    if (!student || !hostel) return;
 
-    await Application.create({
+    appDocs.push({
+      applicationNumber: `APP-${currentYear}-${1001 + idx}`,
       student: student._id,
       preferredHostel: hostel._id,
       roomType: app.roomType,
@@ -637,21 +673,28 @@ async function seedRealData() {
       reviewedBy: app.status !== 'Pending' ? primaryAdmin._id : undefined,
       reviewedAt: app.status !== 'Pending' ? new Date() : undefined,
     });
+  });
+
+  if (appDocs.length > 0) {
+    await Application.insertMany(appDocs);
   }
-  console.log('Created realistic student applications with real statuses.');
+  console.log(`Created ${appDocs.length} realistic student applications with real statuses.`);
 
   console.log('\n=== REAL DATASET SEEDING COMPLETE ===');
-  console.log(`- 2 Admins (Chief Warden: admin@stayhostel.edu / Admin@123)`);
+  console.log(`- 2 Admins & ${students.length} Real Student Profiles`);
   console.log(`- 8 Prestigious Campus Residential Halls`);
   console.log(`- ${createdRooms.length} Detailed Campus Rooms`);
-  console.log(`- ${students.length} Real Student Profiles (All Student@123)`);
   console.log(`- ${allocations.length} Active Real-World Room Allocations`);
-  console.log(`- ${applicationData.length} Real Student Applications with History & Remarks`);
-
-  process.exit(0);
+  console.log(`- ${appDocs.length} Real Student Applications with History & Remarks`);
 }
 
-seedRealData().catch((err) => {
-  console.error('Seeding error:', err);
-  process.exit(1);
-});
+if (require.main === module) {
+  seedRealData({ connect: true, clear: true })
+    .then(() => process.exit(0))
+    .catch((err) => {
+      console.error('Seeding error:', err);
+      process.exit(1);
+    });
+}
+
+module.exports = { seedRealData, ensureSeeded };

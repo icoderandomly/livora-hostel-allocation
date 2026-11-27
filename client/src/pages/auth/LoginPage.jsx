@@ -204,7 +204,6 @@ export const LoginPage = () => {
                 <Sparkles className="w-3.5 h-3.5 text-sky-400" />
                 <span>Instant 1-Click Persona Sign-In</span>
               </p>
-              <span className="text-[10px] text-slate-400 font-mono">Password: Admin@123</span>
             </div>
 
             <div className="grid grid-cols-2 gap-2 text-[11px]">
