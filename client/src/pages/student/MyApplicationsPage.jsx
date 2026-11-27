@@ -2,12 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FileText,
-  Clock,
-  CheckCircle2,
-  XCircle,
-  Building2,
-  Calendar,
-  AlertCircle,
   BedDouble,
   ArrowRight,
   Sparkles,
@@ -41,21 +35,23 @@ export const MyApplicationsPage = () => {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6 animate-fade-up">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#0c1429]/90 p-6 rounded-3xl border border-indigo-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.36)] backdrop-blur-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 glass-panel p-6 rounded-3xl">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
-            <FileText className="w-6 h-6 text-indigo-400" />
+          <h1 className="text-xl font-extrabold text-stone-100 tracking-tight flex items-center gap-2.5">
+            <span className="p-2 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
+              <FileText className="w-5 h-5" />
+            </span>
             My Hostel Applications
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-stone-400 mt-1.5">
             Track submission timelines, warden inspection remarks, and room allocation statuses.
           </p>
         </div>
         <Link
           to="/student/apply"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-xs font-semibold shadow-md shadow-indigo-950/50 transition-all hover:scale-[1.02] active:scale-[0.98]"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 hover:from-amber-400 hover:via-yellow-400 hover:to-orange-400 text-stone-950 rounded-2xl text-xs font-black shadow-lg shadow-amber-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
         >
           <BedDouble className="w-4 h-4" />
           <span>New Application</span>
@@ -70,21 +66,21 @@ export const MyApplicationsPage = () => {
           applications.map((app) => (
             <div
               key={app._id}
-              className="bg-[#0c1429]/90 rounded-3xl border border-indigo-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.36)] backdrop-blur-xl p-6 hover:border-indigo-500/40 transition-all"
+              className="glass-card glass-card-hover rounded-3xl p-6"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-indigo-950/80">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-800/90">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-stone-950 flex items-center justify-center font-black shadow-lg shadow-amber-500/20">
                     <FileText className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3 className="text-sm font-bold text-white font-mono">
+                      <h3 className="text-sm font-bold text-stone-100 font-mono">
                         {app.applicationNumber}
                       </h3>
                       <Badge status={app.status} />
                     </div>
-                    <p className="text-xs text-slate-400 mt-0.5">
+                    <p className="text-xs text-stone-400 mt-0.5">
                       Submitted on {new Date(app.createdAt).toLocaleDateString()} at{' '}
                       {new Date(app.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </p>
@@ -94,7 +90,7 @@ export const MyApplicationsPage = () => {
                 {app.status === 'Allocated' && (
                   <Link
                     to="/student/my-room"
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-xl text-xs font-semibold transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-500/15 text-emerald-300 hover:bg-emerald-500/25 border border-emerald-500/35 rounded-xl text-xs font-bold transition-colors"
                   >
                     <span>View Allocated Room</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -105,34 +101,34 @@ export const MyApplicationsPage = () => {
               {/* Application Details Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 text-xs">
                 <div>
-                  <span className="text-[10px] text-indigo-400 uppercase font-bold tracking-wider">Preferred Hostel</span>
-                  <p className="font-semibold text-white mt-0.5">{app.preferredHostel?.name}</p>
-                  <p className="text-slate-400 text-[11px]">{app.preferredHostel?.location}</p>
+                  <span className="text-[10px] text-amber-400 uppercase font-bold tracking-wider">Preferred Hostel</span>
+                  <p className="font-semibold text-stone-100 mt-0.5">{app.preferredHostel?.name}</p>
+                  <p className="text-stone-400 text-[11px]">{app.preferredHostel?.location}</p>
                 </div>
 
                 <div>
-                  <span className="text-[10px] text-indigo-400 uppercase font-bold tracking-wider">Room Category</span>
-                  <p className="font-semibold text-white mt-0.5">{app.roomType} Room</p>
-                  <p className="text-slate-400 text-[11px]">Floor {app.preferredFloor} preferred</p>
+                  <span className="text-[10px] text-amber-400 uppercase font-bold tracking-wider">Room Category</span>
+                  <p className="font-semibold text-stone-100 mt-0.5">{app.roomType} Room</p>
+                  <p className="text-stone-400 text-[11px]">Floor {app.preferredFloor} preferred</p>
                 </div>
 
                 <div>
-                  <span className="text-[10px] text-indigo-400 uppercase font-bold tracking-wider">Emergency Contact</span>
-                  <p className="font-medium text-slate-200 mt-0.5">
+                  <span className="text-[10px] text-amber-400 uppercase font-bold tracking-wider">Emergency Contact</span>
+                  <p className="font-medium text-stone-200 mt-0.5">
                     {app.personalDetails?.emergencyContactName || 'None'}
                   </p>
-                  <p className="text-slate-400 text-[11px]">
+                  <p className="text-stone-400 text-[11px]">
                     {app.personalDetails?.emergencyContactPhone}
                   </p>
                 </div>
 
                 <div>
-                  <span className="text-[10px] text-indigo-400 uppercase font-bold tracking-wider">Review Date</span>
-                  <p className="text-slate-200 mt-0.5 font-medium">
+                  <span className="text-[10px] text-amber-400 uppercase font-bold tracking-wider">Review Date</span>
+                  <p className="text-stone-200 mt-0.5 font-medium">
                     {app.reviewedAt ? new Date(app.reviewedAt).toLocaleDateString() : 'Pending'}
                   </p>
                   {app.reviewedBy && (
-                    <p className="text-slate-400 text-[11px]">By {app.reviewedBy.name}</p>
+                    <p className="text-stone-400 text-[11px]">By {app.reviewedBy.name}</p>
                   )}
                 </div>
               </div>
@@ -142,35 +138,35 @@ export const MyApplicationsPage = () => {
                 <div
                   className={`mt-2 p-3.5 rounded-2xl border text-xs ${
                     app.status === 'Approved' || app.status === 'Allocated'
-                      ? 'bg-blue-500/10 border-blue-500/30 text-blue-200'
+                      ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-200'
                       : app.status === 'Rejected'
                       ? 'bg-rose-500/10 border-rose-500/30 text-rose-200'
-                      : 'bg-[#070e24] border-indigo-950 text-slate-300'
+                      : 'bg-[#0b0a08] border-stone-800 text-stone-300'
                   }`}
                 >
-                  <p className="font-bold text-[11px] uppercase tracking-wider mb-1 flex items-center gap-1.5 text-indigo-300">
+                  <p className="font-bold text-[11px] uppercase tracking-wider mb-1 flex items-center gap-1.5 text-amber-300">
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>Warden / Admin Remarks</span>
                   </p>
                   <p>{app.adminRemarks}</p>
                 </div>
               ) : (
-                <div className="mt-2 p-3 bg-[#070e24] rounded-2xl border border-indigo-950/60 text-xs text-slate-400 italic">
+                <div className="mt-2 p-3 bg-[#0b0a08] rounded-2xl border border-stone-800/80 text-xs text-stone-400 italic">
                   No additional remarks from administration yet.
                 </div>
               )}
             </div>
           ))
         ) : (
-          <div className="bg-[#0c1429]/90 p-12 text-center rounded-3xl border border-indigo-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.36)] backdrop-blur-xl">
-            <FileText className="w-12 h-12 text-indigo-400/50 mx-auto mb-3" />
-            <h3 className="text-sm font-bold text-white">No Applications Filed Yet</h3>
-            <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto mb-4">
-              You haven't submitted any hostel accommodation applications yet.
+          <div className="glass-panel p-12 text-center rounded-3xl">
+            <FileText className="w-12 h-12 text-amber-400/50 mx-auto mb-3" />
+            <h3 className="text-sm font-bold text-stone-100">No Applications Filed Yet</h3>
+            <p className="text-xs text-stone-400 mt-1 max-w-sm mx-auto mb-4">
+              You haven&apos;t submitted any hostel accommodation applications yet.
             </p>
             <Link
               to="/student/apply"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-semibold shadow-md shadow-indigo-950/50"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 hover:from-amber-400 hover:via-yellow-400 hover:to-orange-400 text-stone-950 rounded-xl text-xs font-black shadow-lg shadow-amber-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <BedDouble className="w-4 h-4" />
               <span>Apply for Room</span>

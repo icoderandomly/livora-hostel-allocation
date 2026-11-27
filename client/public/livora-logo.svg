@@ -1,22 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0b1329" />
-      <stop offset="50%" stop-color="#0e1e3f" />
-      <stop offset="100%" stop-color="#080d1e" />
+      <stop offset="0%" stop-color="#171411" />
+      <stop offset="50%" stop-color="#1f1a14" />
+      <stop offset="100%" stop-color="#090807" />
     </linearGradient>
     <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#38bdf8" />
-      <stop offset="50%" stop-color="#3b82f6" />
-      <stop offset="100%" stop-color="#6366f1" />
+      <stop offset="0%" stop-color="#fde68a" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
     </linearGradient>
     <linearGradient id="accentGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#4f46e5" />
-      <stop offset="100%" stop-color="#06b6d4" />
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#fbbf24" />
     </linearGradient>
     <linearGradient id="glowGrad" x1="50%" y1="0%" x2="50%" y2="100%">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
-      <stop offset="100%" stop-color="#6366f1" stop-opacity="0" />
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0" />
     </linearGradient>
     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="16" result="blur" />
@@ -26,49 +26,47 @@
 
   <!-- Base Rounded Shield Background -->
   <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
-  <rect x="8" y="8" width="496" height="496" rx="120" stroke="url(#primaryGrad)" stroke-width="4" stroke-opacity="0.3" fill="none" />
+  <rect x="8" y="8" width="496" height="496" rx="120" stroke="url(#primaryGrad)" stroke-width="4" stroke-opacity="0.45" fill="none" />
 
   <!-- Outer Ambient Glow -->
-  <circle cx="256" cy="220" r="160" fill="url(#glowGrad)" filter="url(#glow)" opacity="0.4" />
+  <circle cx="256" cy="220" r="160" fill="url(#glowGrad)" filter="url(#glow)" opacity="0.38" />
 
   <!-- Collegiate Residential Crest Architecture -->
   <g filter="url(#glow)">
     <!-- Left Residential Wing -->
-    <path d="M120 380 L120 220 L200 160 L200 380 Z" fill="url(#primaryGrad)" fill-opacity="0.9" />
-    <!-- Left Wing Windows -->
-    <rect x="140" y="240" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
-    <rect x="168" y="240" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
-    <rect x="140" y="280" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
-    <rect x="168" y="280" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
-    <rect x="140" y="320" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
-    <rect x="168" y="320" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
+    <path d="M120 380 L120 220 L200 160 L200 380 Z" fill="url(#primaryGrad)" fill-opacity="0.92" />
+    <rect x="140" y="240" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
+    <rect x="168" y="240" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
+    <rect x="140" y="280" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
+    <rect x="168" y="280" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
+    <rect x="140" y="320" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
+    <rect x="168" y="320" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
 
     <!-- Right Residential Wing -->
-    <path d="M392 380 L392 220 L312 160 L312 380 Z" fill="url(#accentGrad)" fill-opacity="0.9" />
-    <!-- Right Wing Windows -->
-    <rect x="328" y="240" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
-    <rect x="356" y="240" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
-    <rect x="328" y="280" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
-    <rect x="356" y="280" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
-    <rect x="328" y="320" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
-    <rect x="356" y="320" width="16" height="24" rx="4" fill="#ffffff" fill-opacity="0.9" />
+    <path d="M392 380 L392 220 L312 160 L312 380 Z" fill="url(#accentGrad)" fill-opacity="0.92" />
+    <rect x="328" y="240" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
+    <rect x="356" y="240" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
+    <rect x="328" y="280" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
+    <rect x="356" y="280" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
+    <rect x="328" y="320" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
+    <rect x="356" y="320" width="16" height="24" rx="4" fill="#090807" fill-opacity="0.88" />
 
     <!-- Center Spire & Grand Portal -->
     <path d="M216 380 L216 120 L256 80 L296 120 L296 380 Z" fill="url(#primaryGrad)" />
     <!-- Spire Arch Gateway -->
-    <path d="M236 380 L236 290 Q256 268 276 290 L276 380 Z" fill="#080d1e" />
+    <path d="M236 380 L236 290 Q256 268 276 290 L276 380 Z" fill="#090807" />
     <!-- Glowing Golden Keyhole Beacon in Gateway -->
-    <circle cx="256" cy="318" r="8" fill="#38bdf8" />
-    <polygon points="253,322 259,322 261,344 251,344" fill="#38bdf8" />
+    <circle cx="256" cy="318" r="8" fill="#fbbf24" />
+    <polygon points="253,322 259,322 261,344 251,344" fill="#fbbf24" />
 
     <!-- Center Clock / Beacon Star -->
-    <circle cx="256" cy="156" r="18" fill="#ffffff" />
-    <circle cx="256" cy="156" r="10" fill="#3b82f6" />
+    <circle cx="256" cy="156" r="18" fill="#090807" />
+    <circle cx="256" cy="156" r="10" fill="#fde68a" />
     <!-- Radiant Star Crown -->
-    <polygon points="256,54 262,72 280,78 262,84 256,102 250,84 232,78 250,72" fill="#38bdf8" />
+    <polygon points="256,54 262,72 280,78 262,84 256,102 250,84 232,78 250,72" fill="#fde68a" />
   </g>
 
   <!-- Foundation Pedestal -->
   <rect x="96" y="380" width="320" height="20" rx="8" fill="url(#primaryGrad)" />
-  <rect x="80" y="400" width="352" height="14" rx="7" fill="#1e293b" />
+  <rect x="80" y="400" width="352" height="14" rx="7" fill="#292524" />
 </svg>

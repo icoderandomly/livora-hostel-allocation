@@ -9,7 +9,7 @@ export const ProtectedRoute = ({ children, allowedRole }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#090807] text-stone-100">
         <LoadingSpinner size="lg" text="Authenticating user session..." />
       </div>
     );
@@ -20,7 +20,6 @@ export const ProtectedRoute = ({ children, allowedRole }) => {
   }
 
   if (allowedRole && user.role !== allowedRole) {
-    // Redirect to their appropriate home dashboard
     if (user.role === 'ADMIN') {
       return <Navigate to="/admin/dashboard" replace />;
     } else {

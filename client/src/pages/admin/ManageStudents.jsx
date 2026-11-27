@@ -6,12 +6,7 @@ import {
   UserCheck,
   UserX,
   Eye,
-  Mail,
-  Phone,
-  GraduationCap,
   DoorOpen,
-  Calendar,
-  AlertCircle,
 } from 'lucide-react';
 import { studentService } from '../../services/api';
 import { Badge } from '../../components/common/Badge';
@@ -85,49 +80,49 @@ export const ManageStudents = () => {
   return (
     <div className="space-y-6">
       {/* Top Header */}
-      <div className="bg-[#0c1429]/90 p-6 rounded-3xl border border-indigo-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.36)] backdrop-blur-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="glass-panel p-6 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
-            <Users className="w-6 h-6 text-indigo-400" />
+            <Users className="w-6 h-6 text-amber-400" />
             Student Directory
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-stone-400 mt-1">
             Registered university students, contact profiles, and room occupancy status.
           </p>
         </div>
       </div>
 
       {/* Filters & Search */}
-      <div className="bg-[#0c1429]/90 p-4 rounded-3xl border border-indigo-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.36)] backdrop-blur-xl flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <div className="glass-card p-4 rounded-3xl flex flex-col sm:flex-row gap-3 items-center justify-between">
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-amber-400/80 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search name, roll no, email, or course..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+            className="w-full pl-9 pr-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
           />
         </div>
 
         <div className="flex items-center gap-2 w-full sm:w-auto">
-          <Filter className="w-4 h-4 text-indigo-400" />
-          <span className="text-xs font-medium text-slate-300">Gender:</span>
+          <Filter className="w-4 h-4 text-amber-400" />
+          <span className="text-xs font-medium text-stone-300">Gender:</span>
           <select
             value={selectedGender}
             onChange={(e) => setSelectedGender(e.target.value)}
-            className="py-1.5 px-3 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 text-slate-200 font-medium"
+            className="py-1.5 px-3 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400 text-stone-200 font-medium"
           >
-            <option value="">All Genders</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
+            <option value="" className="bg-[#12100e] text-stone-200">All Genders</option>
+            <option value="Male" className="bg-[#12100e] text-stone-200">Male</option>
+            <option value="Female" className="bg-[#12100e] text-stone-200">Female</option>
+            <option value="Other" className="bg-[#12100e] text-stone-200">Other</option>
           </select>
         </div>
       </div>
 
       {/* Students Table */}
-      <div className="bg-[#0c1429]/90 rounded-3xl border border-indigo-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.36)] backdrop-blur-xl overflow-hidden">
+      <div className="glass-card rounded-3xl overflow-hidden">
         {loading ? (
           <div className="p-6">
             <TableSkeleton rows={5} cols={5} />
@@ -136,7 +131,7 @@ export const ManageStudents = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-[#070e24]/90 border-b border-indigo-950/80 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                <tr className="bg-[#0b0a08]/95 border-b border-stone-800 text-[11px] font-bold text-stone-400 uppercase tracking-wider">
                   <th className="py-3.5 px-4">Student</th>
                   <th className="py-3.5 px-4">Roll Number</th>
                   <th className="py-3.5 px-4">Course & Year</th>
@@ -145,33 +140,33 @@ export const ManageStudents = () => {
                   <th className="py-3.5 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-indigo-950/50 text-xs">
+              <tbody className="divide-y divide-stone-800/70 text-xs">
                 {students.map((student) => (
-                  <tr key={student._id} className="hover:bg-indigo-950/30 transition-colors">
+                  <tr key={student._id} className="hover:bg-amber-500/5 transition-colors">
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-600 to-orange-500 text-stone-950 flex items-center justify-center font-black text-xs shadow-sm">
                           {student.name.charAt(0)}
                         </div>
                         <div>
                           <div className="font-bold text-white">{student.name}</div>
-                          <div className="text-[11px] text-slate-400">{student.email}</div>
+                          <div className="text-[11px] text-stone-400">{student.email}</div>
                         </div>
                       </div>
                     </td>
 
-                    <td className="py-3.5 px-4 font-mono font-semibold text-indigo-400">
+                    <td className="py-3.5 px-4 font-mono font-semibold text-amber-400">
                       {student.rollNumber || 'N/A'}
                     </td>
 
                     <td className="py-3.5 px-4">
-                      <div className="font-medium text-slate-200">{student.course || 'N/A'}</div>
-                      <div className="text-[11px] text-slate-400">{student.year}</div>
+                      <div className="font-medium text-stone-200">{student.course || 'N/A'}</div>
+                      <div className="text-[11px] text-stone-400">{student.year}</div>
                     </td>
 
                     <td className="py-3.5 px-4">
-                      <div className="text-slate-300">{student.phoneNumber || 'N/A'}</div>
-                      <div className="text-[11px] text-slate-400">{student.gender}</div>
+                      <div className="text-stone-300">{student.phoneNumber || 'N/A'}</div>
+                      <div className="text-[11px] text-stone-400">{student.gender}</div>
                     </td>
 
                     <td className="py-3.5 px-4">
@@ -184,7 +179,7 @@ export const ManageStudents = () => {
                           </span>
                         </div>
                       ) : (
-                        <span className="text-[11px] font-medium text-slate-500">
+                        <span className="text-[11px] font-medium text-stone-500">
                           Not Allocated
                         </span>
                       )}
@@ -194,7 +189,7 @@ export const ManageStudents = () => {
                       <div className="flex items-center justify-end gap-1.5">
                         <button
                           onClick={() => handleOpenDetails(student._id)}
-                          className="p-1.5 text-slate-400 hover:text-white hover:bg-indigo-900/40 rounded-lg transition-colors"
+                          className="p-1.5 text-stone-400 hover:text-amber-300 hover:bg-amber-500/10 rounded-lg transition-colors"
                           title="View Profile & History"
                         >
                           <Eye className="w-4 h-4" />
@@ -219,9 +214,9 @@ export const ManageStudents = () => {
           </div>
         ) : (
           <div className="p-12 text-center">
-            <Users className="w-12 h-12 text-indigo-400/50 mx-auto mb-3" />
+            <Users className="w-12 h-12 text-amber-400/40 mx-auto mb-3" />
             <h3 className="text-sm font-bold text-white">No Students Found</h3>
-            <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
+            <p className="text-xs text-stone-400 mt-1 max-w-sm mx-auto">
               No student records matched your search query.
             </p>
           </div>
@@ -237,35 +232,35 @@ export const ManageStudents = () => {
         maxWidth="max-w-2xl"
       >
         {detailLoading ? (
-          <div className="p-8 text-center text-xs text-slate-400">Loading student record...</div>
+          <div className="p-8 text-center text-xs text-stone-400">Loading student record...</div>
         ) : studentDetails ? (
           <div className="space-y-5">
             {/* Student Info Card */}
-            <div className="p-4 bg-[#070e24] rounded-2xl border border-indigo-950/80 grid grid-cols-2 gap-3 text-xs">
+            <div className="p-4 bg-[#0b0a08] rounded-2xl border border-stone-800 grid grid-cols-2 gap-3 text-xs">
               <div>
-                <p className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">Name</p>
+                <p className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Name</p>
                 <p className="font-bold text-white mt-0.5">{studentDetails.student.name}</p>
-                <p className="text-slate-400">{studentDetails.student.email}</p>
-                <p className="text-slate-400">{studentDetails.student.phoneNumber}</p>
+                <p className="text-stone-400">{studentDetails.student.email}</p>
+                <p className="text-stone-400">{studentDetails.student.phoneNumber}</p>
               </div>
 
               <div>
-                <p className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">Academic Info</p>
-                <p className="font-semibold text-slate-200 mt-0.5">
+                <p className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Academic Info</p>
+                <p className="font-semibold text-stone-200 mt-0.5">
                   Roll No: {studentDetails.student.rollNumber || 'N/A'}
                 </p>
-                <p className="text-slate-400">{studentDetails.student.course}</p>
-                <p className="text-slate-400">{studentDetails.student.year} • {studentDetails.student.gender}</p>
+                <p className="text-stone-400">{studentDetails.student.course}</p>
+                <p className="text-stone-400">{studentDetails.student.year} • {studentDetails.student.gender}</p>
               </div>
             </div>
 
             {/* Current Active Allocation */}
             <div>
-              <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+              <h4 className="text-xs font-bold text-stone-300 uppercase tracking-wider mb-2">
                 Active Room Allocation
               </h4>
               {studentDetails.activeAllocation ? (
-                <div className="p-3 bg-[#070e24] border border-emerald-500/30 rounded-2xl text-xs text-emerald-200 flex items-center justify-between">
+                <div className="p-3 bg-[#0b0a08] border border-emerald-500/30 rounded-2xl text-xs text-emerald-200 flex items-center justify-between">
                   <div>
                     <p className="font-bold text-white">
                       {studentDetails.activeAllocation.hostel?.name} - Room{' '}
@@ -280,7 +275,7 @@ export const ManageStudents = () => {
                   <Badge status="Active" />
                 </div>
               ) : (
-                <div className="p-3 bg-[#070e24] border border-indigo-950 rounded-2xl text-xs text-slate-400">
+                <div className="p-3 bg-[#0b0a08] border border-stone-800 rounded-2xl text-xs text-stone-400">
                   Student does not currently hold an active room allocation.
                 </div>
               )}
@@ -288,7 +283,7 @@ export const ManageStudents = () => {
 
             {/* Application History */}
             <div>
-              <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+              <h4 className="text-xs font-bold text-stone-300 uppercase tracking-wider mb-2">
                 Applications Filed ({studentDetails.applications?.length || 0})
               </h4>
               <div className="space-y-2 max-h-40 overflow-y-auto">
@@ -296,14 +291,14 @@ export const ManageStudents = () => {
                   studentDetails.applications.map((app) => (
                     <div
                       key={app._id}
-                      className="p-3 bg-[#070e24] border border-indigo-950 rounded-2xl text-xs flex items-center justify-between"
+                      className="p-3 bg-[#0b0a08] border border-stone-800 rounded-2xl text-xs flex items-center justify-between"
                     >
                       <div>
-                        <span className="font-bold text-indigo-400">{app.applicationNumber}</span>
-                        <span className="text-slate-300 ml-2">
+                        <span className="font-bold text-amber-400">{app.applicationNumber}</span>
+                        <span className="text-stone-300 ml-2">
                           Prefers: {app.preferredHostel?.name} ({app.roomType})
                         </span>
-                        <div className="text-[10px] text-slate-400 mt-0.5">
+                        <div className="text-[10px] text-stone-400 mt-0.5">
                           Submitted on {new Date(app.createdAt).toLocaleDateString()}
                         </div>
                       </div>
@@ -311,7 +306,7 @@ export const ManageStudents = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="text-xs text-slate-400">No applications filed yet.</p>
+                  <p className="text-xs text-stone-400">No applications filed yet.</p>
                 )}
               </div>
             </div>
@@ -320,7 +315,7 @@ export const ManageStudents = () => {
               <button
                 type="button"
                 onClick={() => setIsDetailModalOpen(false)}
-                className="px-4 py-2 text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors"
+                className="px-4 py-2 text-xs font-semibold text-stone-300 bg-stone-800 hover:bg-stone-700 rounded-xl transition-colors"
               >
                 Close
               </button>

@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 import {
   User,
-  Mail,
-  Phone,
-  BookOpen,
-  Calendar,
   Lock,
   Eye,
   EyeOff,
-  Hash,
-  CheckCircle2,
-  AlertCircle,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/common/Toast';
@@ -76,103 +69,108 @@ export const StudentProfilePage = () => {
     }
   };
 
+  const inputClass =
+    'w-full px-3.5 py-2.5 bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-100 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400 transition-all';
+
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6 animate-fade-up">
       {/* Top Header */}
-      <div className="bg-[#0c1429]/90 p-6 rounded-3xl border border-indigo-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.36)] backdrop-blur-xl">
-        <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
-          <User className="w-6 h-6 text-indigo-400" />
-          Student Profile & Security
+      <div className="glass-panel p-6 rounded-3xl">
+        <h1 className="text-xl font-extrabold text-stone-100 tracking-tight flex items-center gap-2.5">
+          <span className="p-2 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
+            <User className="w-5 h-5" />
+          </span>
+          Student Profile &amp; Security
         </h1>
-        <p className="text-xs text-slate-400 mt-1">
+        <p className="text-xs text-stone-400 mt-1.5">
           Review your enrolled university details and manage your account credentials.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Personal Details Form */}
-        <div className="bg-[#0c1429]/90 p-6 rounded-3xl border border-indigo-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.36)] backdrop-blur-xl">
-          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-indigo-950/80">
-            <User className="w-5 h-5 text-indigo-400" />
-            <h2 className="text-sm font-bold text-white">Personal Information</h2>
+        <div className="glass-panel p-6 rounded-3xl">
+          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-stone-800/90">
+            <User className="w-5 h-5 text-amber-400" />
+            <h2 className="text-sm font-bold text-stone-100">Personal Information</h2>
           </div>
 
           <form onSubmit={handleProfileSubmit} className="space-y-4 text-xs">
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">Full Name</label>
+              <label className="block font-semibold text-stone-300 mb-1.5">Full Name</label>
               <input
                 type="text"
                 required
                 value={profileData.name}
                 onChange={(e) => setFormData({ ...profileData, name: e.target.value })}
-                className="w-full px-3 py-2 bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className={inputClass}
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block font-semibold text-slate-300 mb-1">Roll Number</label>
+                <label className="block font-semibold text-stone-300 mb-1.5">Roll Number</label>
                 <input
                   type="text"
                   disabled
                   value={user?.rollNumber || ''}
-                  className="w-full px-3 py-2 bg-[#050914] border border-indigo-950/40 rounded-xl text-indigo-400 font-mono cursor-not-allowed"
+                  className="w-full px-3.5 py-2.5 bg-[#080706] border border-stone-800/70 rounded-xl text-amber-400 font-mono cursor-not-allowed"
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-300 mb-1">Gender</label>
+                <label className="block font-semibold text-stone-300 mb-1.5">Gender</label>
                 <select
                   value={profileData.gender}
                   onChange={(e) => setFormData({ ...profileData, gender: e.target.value })}
-                  className="w-full px-3 py-2 bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                  className={inputClass}
                 >
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
+                  <option value="Male" className="bg-[#12100e] text-stone-100">Male</option>
+                  <option value="Female" className="bg-[#12100e] text-stone-100">Female</option>
+                  <option value="Other" className="bg-[#12100e] text-stone-100">Other</option>
                 </select>
               </div>
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">Email Address</label>
+              <label className="block font-semibold text-stone-300 mb-1.5">Email Address</label>
               <input
                 type="email"
                 disabled
                 value={user?.email || ''}
-                className="w-full px-3 py-2 bg-[#050914] border border-indigo-950/40 rounded-xl text-slate-500 cursor-not-allowed"
+                className="w-full px-3.5 py-2.5 bg-[#080706] border border-stone-800/70 rounded-xl text-stone-400 cursor-not-allowed"
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">Phone Number</label>
+              <label className="block font-semibold text-stone-300 mb-1.5">Phone Number</label>
               <input
                 type="tel"
                 required
                 value={profileData.phoneNumber}
                 onChange={(e) => setFormData({ ...profileData, phoneNumber: e.target.value })}
-                className="w-full px-3 py-2 bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className={inputClass}
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block font-semibold text-slate-300 mb-1">Course / Degree</label>
+                <label className="block font-semibold text-stone-300 mb-1.5">Course / Degree</label>
                 <input
                   type="text"
                   required
                   value={profileData.course}
                   onChange={(e) => setFormData({ ...profileData, course: e.target.value })}
-                  className="w-full px-3 py-2 bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                  className={inputClass}
                 />
               </div>
               <div>
-                <label className="block font-semibold text-slate-300 mb-1">Academic Year</label>
+                <label className="block font-semibold text-stone-300 mb-1.5">Academic Year</label>
                 <input
                   type="text"
                   required
                   value={profileData.year}
                   onChange={(e) => setFormData({ ...profileData, year: e.target.value })}
-                  className="w-full px-3 py-2 bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                  className={inputClass}
                 />
               </div>
             </div>
@@ -181,7 +179,7 @@ export const StudentProfilePage = () => {
               <button
                 type="submit"
                 disabled={profileLoading}
-                className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-xl shadow-md shadow-indigo-950/50 disabled:opacity-50 transition-all active:scale-95"
+                className="px-5 py-2.5 bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 hover:from-amber-400 hover:via-yellow-400 hover:to-orange-400 text-stone-950 font-black rounded-xl shadow-lg shadow-amber-500/25 disabled:opacity-50 transition-all hover:scale-[1.02] active:scale-95"
               >
                 {profileLoading ? 'Saving...' : 'Save Profile'}
               </button>
@@ -190,15 +188,15 @@ export const StudentProfilePage = () => {
         </div>
 
         {/* Change Password Form */}
-        <div className="bg-[#0c1429]/90 p-6 rounded-3xl border border-indigo-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.36)] backdrop-blur-xl">
-          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-indigo-950/80">
-            <Lock className="w-5 h-5 text-indigo-400" />
-            <h2 className="text-sm font-bold text-white">Change Password</h2>
+        <div className="glass-panel p-6 rounded-3xl">
+          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-stone-800/90">
+            <Lock className="w-5 h-5 text-amber-400" />
+            <h2 className="text-sm font-bold text-stone-100">Change Password</h2>
           </div>
 
           <form onSubmit={handlePasswordSubmit} className="space-y-4 text-xs">
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">Current Password *</label>
+              <label className="block font-semibold text-stone-300 mb-1.5">Current Password *</label>
               <input
                 type={showPassword ? 'text' : 'password'}
                 required
@@ -207,12 +205,12 @@ export const StudentProfilePage = () => {
                   setPasswordData({ ...passwordData, currentPassword: e.target.value })
                 }
                 placeholder="Enter current password"
-                className="w-full px-3 py-2 bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className={inputClass}
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">New Password *</label>
+              <label className="block font-semibold text-stone-300 mb-1.5">New Password *</label>
               <input
                 type={showPassword ? 'text' : 'password'}
                 required
@@ -221,12 +219,12 @@ export const StudentProfilePage = () => {
                   setPasswordData({ ...passwordData, newPassword: e.target.value })
                 }
                 placeholder="Min 6 characters"
-                className="w-full px-3 py-2 bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className={inputClass}
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">Confirm New Password *</label>
+              <label className="block font-semibold text-stone-300 mb-1.5">Confirm New Password *</label>
               <input
                 type={showPassword ? 'text' : 'password'}
                 required
@@ -235,7 +233,7 @@ export const StudentProfilePage = () => {
                   setPasswordData({ ...passwordData, confirmPassword: e.target.value })
                 }
                 placeholder="Confirm new password"
-                className="w-full px-3 py-2 bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className={inputClass}
               />
             </div>
 
@@ -243,7 +241,7 @@ export const StudentProfilePage = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-[11px] text-indigo-400 hover:text-indigo-300 flex items-center gap-1"
+                className="text-[11px] text-amber-400 hover:text-amber-300 flex items-center gap-1.5 font-semibold"
               >
                 {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                 <span>{showPassword ? 'Hide' : 'Show'} Passwords</span>
@@ -252,7 +250,7 @@ export const StudentProfilePage = () => {
               <button
                 type="submit"
                 disabled={passwordLoading}
-                className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-xl shadow-md shadow-indigo-950/50 disabled:opacity-50 transition-all active:scale-95"
+                className="px-5 py-2.5 bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 hover:from-amber-400 hover:via-yellow-400 hover:to-orange-400 text-stone-950 font-black rounded-xl shadow-lg shadow-amber-500/25 disabled:opacity-50 transition-all hover:scale-[1.02] active:scale-95"
               >
                 {passwordLoading ? 'Updating...' : 'Update Password'}
               </button>

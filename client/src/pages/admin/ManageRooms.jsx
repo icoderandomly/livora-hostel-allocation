@@ -3,16 +3,10 @@ import {
   DoorOpen,
   Plus,
   Search,
-  Filter,
   Edit2,
   Trash2,
-  Users,
-  Building2,
-  Layers,
-  IndianRupee,
   AlertTriangle,
   User,
-  ShieldAlert,
 } from 'lucide-react';
 import { roomService, hostelService } from '../../services/api';
 import { Badge } from '../../components/common/Badge';
@@ -25,13 +19,11 @@ export const ManageRooms = () => {
   const [hostels, setHostels] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Filter states
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedHostel, setSelectedHostel] = useState('');
   const [selectedRoomType, setSelectedRoomType] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('');
 
-  // Modal states
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -93,7 +85,6 @@ export const ManageRooms = () => {
     const { name, value } = e.target;
     setFormData((prev) => {
       const updated = { ...prev, [name]: value };
-      // Auto-adjust capacity if roomType changes
       if (name === 'roomType') {
         if (value === 'Single') updated.capacity = 1;
         else if (value === 'Double') updated.capacity = 2;
@@ -210,19 +201,19 @@ export const ManageRooms = () => {
   return (
     <div className="space-y-6">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#0c1429]/90 backdrop-blur-xl p-6 sm:p-7 rounded-3xl border border-indigo-500/25 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] text-white">
+      <div className="glass-panel flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 sm:p-7 rounded-3xl text-white">
         <div>
           <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
             <img src="/livora-logo.svg" alt="LIVORA" className="w-8 h-8 rounded-xl" />
-            <span>Room Inventory & Capacity Matrix</span>
+            <span>Room Inventory &amp; Capacity Matrix</span>
           </h1>
-          <p className="text-xs text-slate-300 mt-1">
+          <p className="text-xs text-stone-300 mt-1">
             Maintain room capacities, floor layouts, amenities, and real-time student allocations.
           </p>
         </div>
         <button
           onClick={handleOpenAdd}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-xs font-bold shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 hover:from-amber-400 hover:via-yellow-400 hover:to-orange-400 text-stone-950 rounded-2xl text-xs font-black shadow-lg shadow-amber-500/25 transition-all hover:scale-[1.03] active:scale-[0.98]"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Room</span>
@@ -230,15 +221,15 @@ export const ManageRooms = () => {
       </div>
 
       {/* Filters Bar */}
-      <div className="bg-[#0c1429]/90 backdrop-blur-xl p-4 rounded-3xl border border-indigo-500/25 shadow-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-white">
+      <div className="glass-card p-4 rounded-3xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-white">
         <div className="relative">
-          <Search className="w-4 h-4 text-indigo-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-amber-400/80 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search room number..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 text-xs bg-[#070e24] border border-indigo-800/70 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 text-white placeholder-slate-500"
+            className="w-full pl-9 pr-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400 text-white placeholder-stone-500"
           />
         </div>
 
@@ -246,11 +237,11 @@ export const ManageRooms = () => {
           <select
             value={selectedHostel}
             onChange={(e) => setSelectedHostel(e.target.value)}
-            className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-800/70 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 text-white"
+            className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400 text-white"
           >
-            <option value="" className="bg-[#0c1429] text-white">All Hostels</option>
+            <option value="" className="bg-[#12100e] text-white">All Hostels</option>
             {hostels.map((h) => (
-              <option key={h._id} value={h._id} className="bg-[#0c1429] text-white">
+              <option key={h._id} value={h._id} className="bg-[#12100e] text-white">
                 {h.name}
               </option>
             ))}
@@ -261,12 +252,12 @@ export const ManageRooms = () => {
           <select
             value={selectedRoomType}
             onChange={(e) => setSelectedRoomType(e.target.value)}
-            className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-800/70 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 text-white"
+            className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400 text-white"
           >
-            <option value="" className="bg-[#0c1429] text-white">All Room Types</option>
-            <option value="Single" className="bg-[#0c1429] text-white">Single (1 Bed)</option>
-            <option value="Double" className="bg-[#0c1429] text-white">Double (2 Beds)</option>
-            <option value="Triple" className="bg-[#0c1429] text-white">Triple (3 Beds)</option>
+            <option value="" className="bg-[#12100e] text-white">All Room Types</option>
+            <option value="Single" className="bg-[#12100e] text-white">Single (1 Bed)</option>
+            <option value="Double" className="bg-[#12100e] text-white">Double (2 Beds)</option>
+            <option value="Triple" className="bg-[#12100e] text-white">Triple (3 Beds)</option>
           </select>
         </div>
 
@@ -274,18 +265,18 @@ export const ManageRooms = () => {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-800/70 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 text-white"
+            className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400 text-white"
           >
-            <option value="" className="bg-[#0c1429] text-white">All Statuses</option>
-            <option value="Available" className="bg-[#0c1429] text-white">Available</option>
-            <option value="Full" className="bg-[#0c1429] text-white">Full (Occupied)</option>
-            <option value="Maintenance" className="bg-[#0c1429] text-white">Under Maintenance</option>
+            <option value="" className="bg-[#12100e] text-white">All Statuses</option>
+            <option value="Available" className="bg-[#12100e] text-white">Available</option>
+            <option value="Full" className="bg-[#12100e] text-white">Full (Occupied)</option>
+            <option value="Maintenance" className="bg-[#12100e] text-white">Under Maintenance</option>
           </select>
         </div>
       </div>
 
       {/* Rooms Table */}
-      <div className="bg-[#0c1429]/90 backdrop-blur-xl rounded-3xl border border-indigo-500/25 shadow-xl overflow-hidden text-white">
+      <div className="glass-card rounded-3xl overflow-hidden text-white">
         {loading ? (
           <div className="p-6">
             <TableSkeleton rows={5} cols={6} />
@@ -294,52 +285,52 @@ export const ManageRooms = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-[#080f24] border-b border-indigo-950/90 text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">
+                <tr className="bg-[#0b0a08]/95 border-b border-stone-800 text-[11px] font-extrabold text-stone-400 uppercase tracking-wider">
                   <th className="py-3.5 px-4">Room No.</th>
-                  <th className="py-3.5 px-4">Hostel & Floor</th>
-                  <th className="py-3.5 px-4">Type & Fee</th>
+                  <th className="py-3.5 px-4">Hostel &amp; Floor</th>
+                  <th className="py-3.5 px-4">Type &amp; Fee</th>
                   <th className="py-3.5 px-4">Occupancy Status</th>
                   <th className="py-3.5 px-4">Current Occupants</th>
                   <th className="py-3.5 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-indigo-950/70 text-xs">
+              <tbody className="divide-y divide-stone-800/70 text-xs">
                 {rooms.map((room) => {
                   const isFull = room.currentOccupancy >= room.capacity;
                   return (
-                    <tr key={room._id} className="hover:bg-indigo-950/40 transition-colors">
+                    <tr key={room._id} className="hover:bg-amber-500/5 transition-colors">
                       <td className="py-3.5 px-4">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-lg bg-indigo-950 text-sky-400 flex items-center justify-center font-bold border border-indigo-800/60">
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center font-bold border border-amber-500/30">
                             <DoorOpen className="w-4 h-4" />
                           </div>
-                          <span className="font-bold text-slate-900">{room.roomNumber}</span>
+                          <span className="font-bold text-white font-mono">{room.roomNumber}</span>
                         </div>
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <div className="font-semibold text-slate-800">{room.hostel?.name || 'N/A'}</div>
-                        <div className="text-[11px] text-slate-400">Floor {room.floor}</div>
+                        <div className="font-semibold text-stone-100">{room.hostel?.name || 'N/A'}</div>
+                        <div className="text-[11px] text-stone-400">Floor {room.floor}</div>
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <div className="font-medium text-slate-700">{room.roomType}</div>
-                        <div className="text-[11px] text-brand-600 font-semibold flex items-center">
+                        <div className="font-medium text-stone-200">{room.roomType}</div>
+                        <div className="text-[11px] text-amber-300 font-bold flex items-center">
                           ₹{room.monthlyFee?.toLocaleString()}/mo
                         </div>
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-2 mb-1.5">
                           <Badge status={room.status} />
-                          <span className="text-[11px] font-semibold text-slate-600">
+                          <span className="text-[11px] font-semibold text-stone-300">
                             {room.currentOccupancy}/{room.capacity} beds
                           </span>
                         </div>
-                        <div className="w-24 bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                        <div className="w-24 bg-[#0b0a08] h-1.5 rounded-full overflow-hidden border border-stone-800">
                           <div
                             className={`h-full ${
-                              isFull ? 'bg-rose-500' : 'bg-emerald-500'
+                              isFull ? 'bg-rose-500' : 'bg-gradient-to-r from-emerald-500 to-amber-400'
                             }`}
                             style={{
                               width: `${(room.currentOccupancy / room.capacity) * 100}%`,
@@ -354,18 +345,18 @@ export const ManageRooms = () => {
                             {room.occupants.map((occ) => (
                               <div
                                 key={occ._id}
-                                className="text-[11px] text-slate-700 flex items-center gap-1.5"
+                                className="text-[11px] text-stone-200 flex items-center gap-1.5"
                               >
-                                <User className="w-3 h-3 text-slate-400" />
+                                <User className="w-3 h-3 text-amber-400" />
                                 <span className="font-medium">{occ.student?.name}</span>
-                                <span className="text-slate-400 text-[10px]">
+                                <span className="text-stone-400 text-[10px] font-mono">
                                   ({occ.student?.rollNumber})
                                 </span>
                               </div>
                             ))}
                           </div>
                         ) : (
-                          <span className="text-[11px] text-emerald-600 font-medium">
+                          <span className="text-[11px] text-emerald-400 font-medium">
                             Vacant (Ready to Allocate)
                           </span>
                         )}
@@ -375,7 +366,7 @@ export const ManageRooms = () => {
                         <div className="flex items-center justify-end gap-1.5">
                           <button
                             onClick={() => handleOpenEdit(room)}
-                            className="p-1.5 text-slate-500 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors"
+                            className="p-1.5 text-stone-300 hover:text-amber-300 hover:bg-amber-500/15 rounded-lg transition-colors"
                             title="Edit Room"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
@@ -383,7 +374,7 @@ export const ManageRooms = () => {
                           <button
                             onClick={() => handleOpenDelete(room)}
                             disabled={room.currentOccupancy > 0}
-                            className="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                            className="p-1.5 text-rose-400 hover:text-white hover:bg-rose-600 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                             title={
                               room.currentOccupancy > 0
                                 ? 'Cannot delete occupied room'
@@ -402,9 +393,9 @@ export const ManageRooms = () => {
           </div>
         ) : (
           <div className="p-12 text-center">
-            <DoorOpen className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <h3 className="text-sm font-bold text-slate-700">No Rooms Found</h3>
-            <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
+            <DoorOpen className="w-12 h-12 text-amber-400/40 mx-auto mb-3" />
+            <h3 className="text-sm font-bold text-white">No Rooms Found</h3>
+            <p className="text-xs text-stone-400 mt-1 max-w-sm mx-auto">
               No rooms match your search or filter settings. Click "Add New Room" above to register one.
             </p>
           </div>
@@ -427,23 +418,23 @@ export const ManageRooms = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Hostel *</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Hostel *</label>
               <select
                 name="hostel"
                 required
                 value={formData.hostel}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               >
                 {hostels.map((h) => (
-                  <option key={h._id} value={h._id}>
+                  <option key={h._id} value={h._id} className="bg-[#12100e]">
                     {h.name} ({h.type})
                   </option>
                 ))}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Room Number *</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Room Number *</label>
               <input
                 type="text"
                 name="roomNumber"
@@ -451,14 +442,14 @@ export const ManageRooms = () => {
                 value={formData.roomNumber}
                 onChange={handleInputChange}
                 placeholder="e.g. A-101"
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Floor *</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Floor *</label>
               <input
                 type="number"
                 name="floor"
@@ -466,24 +457,24 @@ export const ManageRooms = () => {
                 required
                 value={formData.floor}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Room Type *</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Room Type *</label>
               <select
                 name="roomType"
                 value={formData.roomType}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               >
-                <option value="Single">Single (1 Bed)</option>
-                <option value="Double">Double (2 Beds)</option>
-                <option value="Triple">Triple (3 Beds)</option>
+                <option value="Single" className="bg-[#12100e]">Single (1 Bed)</option>
+                <option value="Double" className="bg-[#12100e]">Double (2 Beds)</option>
+                <option value="Triple" className="bg-[#12100e]">Triple (3 Beds)</option>
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Total Capacity *</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Total Capacity *</label>
               <input
                 type="number"
                 name="capacity"
@@ -492,14 +483,14 @@ export const ManageRooms = () => {
                 required
                 value={formData.capacity}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Monthly Fee (₹) *</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Monthly Fee (₹) *</label>
               <input
                 type="number"
                 name="monthlyFee"
@@ -508,32 +499,32 @@ export const ManageRooms = () => {
                 value={formData.monthlyFee}
                 onChange={handleInputChange}
                 placeholder="e.g. 6000"
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Initial Status</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Initial Status</label>
               <select
                 name="status"
                 value={formData.status}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               >
-                <option value="Available">Available</option>
-                <option value="Maintenance">Under Maintenance</option>
+                <option value="Available" className="bg-[#12100e]">Available</option>
+                <option value="Maintenance" className="bg-[#12100e]">Under Maintenance</option>
               </select>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">Amenities (comma separated)</label>
+            <label className="block text-xs font-semibold text-stone-300 mb-1">Amenities (comma separated)</label>
             <input
               type="text"
               name="amenities"
               value={formData.amenities}
               onChange={handleInputChange}
               placeholder="Bed, Study Desk, Cupboard, AC, Balcony"
-              className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+              className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
             />
           </div>
 
@@ -541,14 +532,14 @@ export const ManageRooms = () => {
             <button
               type="button"
               onClick={() => setIsAddModalOpen(false)}
-              className="px-4 py-2 text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors"
+              className="px-4 py-2 text-xs font-semibold text-stone-300 bg-stone-800 hover:bg-stone-700 rounded-xl transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="px-5 py-2.5 text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50"
+              className="px-5 py-2.5 text-xs font-black text-stone-950 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50"
             >
               {submitting ? 'Creating...' : 'Create Room'}
             </button>
@@ -572,18 +563,18 @@ export const ManageRooms = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Room Number *</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Room Number *</label>
               <input
                 type="text"
                 name="roomNumber"
                 required
                 value={formData.roomNumber}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Floor *</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Floor *</label>
               <input
                 type="number"
                 name="floor"
@@ -591,27 +582,27 @@ export const ManageRooms = () => {
                 required
                 value={formData.floor}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Room Type</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Room Type</label>
               <select
                 name="roomType"
                 value={formData.roomType}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               >
-                <option value="Single">Single</option>
-                <option value="Double">Double</option>
-                <option value="Triple">Triple</option>
+                <option value="Single" className="bg-[#12100e]">Single</option>
+                <option value="Double" className="bg-[#12100e]">Double</option>
+                <option value="Triple" className="bg-[#12100e]">Triple</option>
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Capacity</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Capacity</label>
               <input
                 type="number"
                 name="capacity"
@@ -620,26 +611,26 @@ export const ManageRooms = () => {
                 required
                 value={formData.capacity}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Status</label>
+              <label className="block text-xs font-semibold text-stone-300 mb-1">Status</label>
               <select
                 name="status"
                 value={formData.status}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
               >
-                <option value="Available">Available</option>
-                <option value="Full">Full</option>
-                <option value="Maintenance">Maintenance</option>
+                <option value="Available" className="bg-[#12100e]">Available</option>
+                <option value="Full" className="bg-[#12100e]">Full</option>
+                <option value="Maintenance" className="bg-[#12100e]">Maintenance</option>
               </select>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">Monthly Fee (₹) *</label>
+            <label className="block text-xs font-semibold text-stone-300 mb-1">Monthly Fee (₹) *</label>
             <input
               type="number"
               name="monthlyFee"
@@ -647,18 +638,18 @@ export const ManageRooms = () => {
               required
               value={formData.monthlyFee}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+              className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">Amenities</label>
+            <label className="block text-xs font-semibold text-stone-300 mb-1">Amenities</label>
             <input
               type="text"
               name="amenities"
               value={formData.amenities}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 text-xs bg-[#070e24] border border-indigo-950/80 rounded-xl text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
+              className="w-full px-3 py-2 text-xs bg-[#0b0a08] border border-stone-800 rounded-xl text-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/35 focus:border-amber-400"
             />
           </div>
 
@@ -666,14 +657,14 @@ export const ManageRooms = () => {
             <button
               type="button"
               onClick={() => setIsEditModalOpen(false)}
-              className="px-4 py-2 text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors"
+              className="px-4 py-2 text-xs font-semibold text-stone-300 bg-stone-800 hover:bg-stone-700 rounded-xl transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="px-5 py-2.5 text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50"
+              className="px-5 py-2.5 text-xs font-black text-stone-950 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50"
             >
               {submitting ? 'Saving...' : 'Save Changes'}
             </button>
@@ -694,7 +685,7 @@ export const ManageRooms = () => {
               <p className="font-semibold text-white">
                 Delete Room {currentRoom?.roomNumber} from {currentRoom?.hostel?.name}?
               </p>
-              <p className="mt-1 text-slate-300">
+              <p className="mt-1 text-stone-300">
                 This room can only be deleted if there are currently zero active occupants.
               </p>
             </div>
@@ -704,7 +695,7 @@ export const ManageRooms = () => {
             <button
               type="button"
               onClick={() => setIsDeleteModalOpen(false)}
-              className="px-4 py-2 text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors"
+              className="px-4 py-2 text-xs font-semibold text-stone-300 bg-stone-800 hover:bg-stone-700 rounded-xl transition-colors"
             >
               Cancel
             </button>

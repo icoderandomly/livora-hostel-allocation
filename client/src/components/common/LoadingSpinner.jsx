@@ -10,9 +10,9 @@ export const LoadingSpinner = ({ size = 'md', text = 'Loading...' }) => {
   return (
     <div className="flex flex-col items-center justify-center p-8 space-y-3">
       <div
-        className={`${sizeClasses[size] || sizeClasses.md} rounded-full border-indigo-500/30 border-t-indigo-400 animate-spin`}
+        className={`${sizeClasses[size] || sizeClasses.md} rounded-full border-amber-500/25 border-t-amber-400 animate-spin`}
       />
-      {text && <p className="text-sm font-medium text-slate-400">{text}</p>}
+      {text && <p className="text-sm font-medium text-stone-400">{text}</p>}
     </div>
   );
 };
@@ -20,13 +20,13 @@ export const LoadingSpinner = ({ size = 'md', text = 'Loading...' }) => {
 export const TableSkeleton = ({ rows = 5, cols = 5 }) => {
   return (
     <div className="w-full animate-pulse space-y-3">
-      <div className="h-10 bg-indigo-950/60 rounded-xl w-full border border-indigo-900/30" />
+      <div className="h-10 bg-stone-900/90 rounded-xl w-full border border-stone-800" />
       {[...Array(rows)].map((_, i) => (
         <div key={i} className="flex gap-4">
           {[...Array(cols)].map((_, j) => (
             <div
               key={j}
-              className="h-8 bg-indigo-950/40 rounded-xl flex-1 border border-indigo-900/20"
+              className="h-8 bg-stone-900/60 rounded-xl flex-1 border border-stone-800/60"
             />
           ))}
         </div>

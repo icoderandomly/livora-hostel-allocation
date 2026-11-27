@@ -6,20 +6,23 @@ const ToastContext = createContext(null);
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
-  const addToast = useCallback((type, message, duration = 4000) => {
-    const id = Date.now() + Math.random().toString(36).substring(2, 9);
-    setToasts((prev) => [...prev, { id, type, message }]);
-
-    if (duration > 0) {
-      setTimeout(() => {
-        removeToast(id);
-      }, duration);
-    }
-  }, []);
-
   const removeToast = useCallback((id) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
+
+  const addToast = useCallback(
+    (type, message, duration = 4000) => {
+      const id = Date.now() + Math.random().toString(36).substring(2, 9);
+      setToasts((prev) => [...prev, { id, type, message }]);
+
+      if (duration > 0) {
+        setTimeout(() => {
+          removeToast(id);
+        }, duration);
+      }
+    },
+    [removeToast]
+  );
 
   const success = useCallback((msg, duration) => addToast('success', msg, duration), [addToast]);
   const error = useCallback((msg, duration) => addToast('error', msg, duration), [addToast]);
@@ -33,12 +36,12 @@ export const ToastProvider = ({ children }) => {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`pointer-events-auto flex items-start gap-3 p-4 rounded-2xl shadow-2xl border backdrop-blur-xl transition-all transform animate-in slide-in-from-bottom-5 duration-200 ${
+            className={`pointer-events-auto flex items-start gap-3 p-4 rounded-2xl shadow-2xl border backdrop-blur-xl transition-all transform animate-fade-up ${
               toast.type === 'success'
-                ? 'bg-[#0c1429]/95 text-emerald-200 border-emerald-500/40 shadow-emerald-950/40'
+                ? 'bg-[#14120f]/95 text-emerald-200 border-emerald-500/40 shadow-emerald-950/50'
                 : toast.type === 'error'
-                ? 'bg-[#0c1429]/95 text-rose-200 border-rose-500/40 shadow-rose-950/40'
-                : 'bg-[#0c1429]/95 text-indigo-200 border-indigo-500/40 shadow-indigo-950/40'
+                ? 'bg-[#14120f]/95 text-rose-200 border-rose-500/40 shadow-rose-950/50'
+                : 'bg-[#14120f]/95 text-amber-200 border-amber-500/40 shadow-amber-950/50'
             }`}
           >
             {toast.type === 'success' && (
@@ -48,12 +51,12 @@ export const ToastProvider = ({ children }) => {
               <AlertCircle className="w-5 h-5 text-rose-400 flex-shrink-0 mt-0.5" />
             )}
             {toast.type === 'info' && (
-              <Info className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
+              <Info className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
             )}
             <div className="flex-1 text-sm font-medium">{toast.message}</div>
             <button
               onClick={() => removeToast(toast.id)}
-              className="text-slate-400 hover:text-white rounded-lg p-0.5 transition-colors"
+              className="text-stone-400 hover:text-white rounded-lg p-0.5 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>

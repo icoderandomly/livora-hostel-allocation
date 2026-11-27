@@ -65,9 +65,9 @@ const getAdminDashboard = async (req, res, next) => {
     // 4. Application Status Chart Data
     const applicationStatusData = [
       { name: 'Pending', count: pendingApplications, color: '#f59e0b' },
-      { name: 'Approved', count: approvedApplications, color: '#3b82f6' },
+      { name: 'Approved', count: approvedApplications, color: '#eab308' },
       { name: 'Allocated', count: allocatedApplications, color: '#10b981' },
-      { name: 'Rejected', count: rejectedApplications, color: '#ef4444' },
+      { name: 'Rejected', count: rejectedApplications, color: '#f43f5e' },
     ];
 
     // 5. Room Type Distribution

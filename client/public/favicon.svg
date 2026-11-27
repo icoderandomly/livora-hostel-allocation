@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
   <defs>
     <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#38bdf8" />
-      <stop offset="50%" stop-color="#3b82f6" />
-      <stop offset="100%" stop-color="#6366f1" />
+      <stop offset="0%" stop-color="#fde68a" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
     </linearGradient>
     <linearGradient id="accentGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#4f46e5" />
-      <stop offset="100%" stop-color="#06b6d4" />
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#fbbf24" />
     </linearGradient>
   </defs>
-  <rect width="512" height="512" rx="128" fill="#070d1e" />
+  <rect width="512" height="512" rx="128" fill="#090807" />
   <path d="M120 380 L120 220 L200 160 L200 380 Z" fill="url(#primaryGrad)" />
   <path d="M392 380 L392 220 L312 160 L312 380 Z" fill="url(#accentGrad)" />
   <path d="M216 380 L216 120 L256 80 L296 120 L296 380 Z" fill="url(#primaryGrad)" />
-  <circle cx="256" cy="156" r="18" fill="#ffffff" />
-  <circle cx="256" cy="318" r="8" fill="#38bdf8" />
-  <polygon points="256,54 262,72 280,78 262,84 256,102 250,84 232,78 250,72" fill="#38bdf8" />
+  <circle cx="256" cy="156" r="18" fill="#090807" />
+  <circle cx="256" cy="318" r="8" fill="#fde68a" />
+  <polygon points="256,54 262,72 280,78 262,84 256,102 250,84 232,78 250,72" fill="#fde68a" />
   <rect x="96" y="380" width="320" height="20" rx="8" fill="url(#primaryGrad)" />
 </svg>
