@@ -18,6 +18,7 @@ const dashboardRoutes = require('./routes/dashboardRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Body Parser
 app.use(express.json());

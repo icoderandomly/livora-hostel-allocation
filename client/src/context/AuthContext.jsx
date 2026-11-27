@@ -64,8 +64,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    const activeToken = localStorage.getItem('hostel_token');
     try {
-      authService.logout().catch(() => {});
+      authService.logout(activeToken).catch(() => {});
     } catch {}
     setToken(null);
     setUser(null);

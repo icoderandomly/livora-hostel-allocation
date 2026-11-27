@@ -41,7 +41,8 @@ export const authService = {
   login: (credentials) => API.post('/auth/login', credentials),
   register: (studentData) => API.post('/auth/register', studentData),
   getMe: () => API.get('/auth/me'),
-  logout: () => API.post('/auth/logout'),
+  logout: (token) =>
+    API.post('/auth/logout', {}, token ? { headers: { Authorization: `Bearer ${token}` } } : {}),
   updateProfile: (data) => API.put('/auth/update-profile', data),
   changePassword: (data) => API.put('/auth/change-password', data),
 };
